@@ -1,0 +1,40 @@
+package main;
+
+import java.awt.EventQueue;
+
+import backEnd.GameLevel;
+import frontEnd.GameUi;
+
+public class Main {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		GameLevel[] levels = initializeLevels();
+		initializeUI(levels);
+		
+	}
+	
+	private static void initializeUI(GameLevel[] levels) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					GameUi window = new GameUi(levels);
+					window.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+	
+	private static GameLevel[] initializeLevels() {
+		GameLevel[] levels = new GameLevel[5];
+		
+		levels[0] = new GameLevel("Welcome to Evil Calculator");
+		levels[0].setFunc1((x, y) -> x + y);
+		
+		levels
+		
+		return levels;
+	}
+}

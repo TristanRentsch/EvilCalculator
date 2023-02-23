@@ -1,0 +1,81 @@
+package game;
+
+import java.util.function.DoubleBinaryOperator;
+import java.util.function.DoubleUnaryOperator;
+
+public class BinaryLevel {
+	private DoubleBinaryOperator dubfunc1;
+	private DoubleBinaryOperator dubfunc2;
+	private DoubleBinaryOperator dubfunc3;
+	
+	private DoubleUnaryOperator  unfunc1;
+	private DoubleUnaryOperator  unfunc2;
+	private DoubleUnaryOperator  unfunc3;
+	
+	private boolean[] numdisabled = new boolean[10];
+	
+	private String lvlTxt; //Shown before start of level
+	
+	BinaryLevel(String lvlText, int[] disabledNums){
+		this.lvlTxt = lvlText;
+		
+		for(int i: disabledNums) {
+			numdisabled[i] = true;
+		}
+	}
+	
+	BinaryLevel(String lvlText) {
+		this.lvlTxt = lvlText;
+	}
+	
+	public boolean isNumDisabled(int num) {
+		return numdisabled[num];
+	}
+	
+	public String getLvlTxt() {
+		return lvlTxt;
+	}
+	
+	// === Set Functions ===
+	
+	public void setFunc1(DoubleBinaryOperator func1) {
+		unfunc1 = null;
+		dubfunc1 = func1;
+	}
+	public void setFunc1(DoubleUnaryOperator func1) {
+		dubfunc1 = null;
+		unfunc1 = func1;
+	}
+	
+	public void setFunc2(DoubleBinaryOperator func2) {
+		unfunc2 = null;
+		dubfunc2 = func2;
+	}
+	public void setFunc2(DoubleUnaryOperator func2) {
+		dubfunc2 = null;
+		unfunc2 = func2;
+	}
+	
+	public void setFunc3(DoubleBinaryOperator func3) {
+		unfunc1 = null;
+		dubfunc1 = func3;
+	}
+	public void setFunc3(DoubleUnaryOperator func3) {
+		dubfunc1 = null;
+		unfunc1 = func3;
+	}
+	
+	// === Check if Functions are Enabled ===
+	
+	public boolean isFunc1Enabled() {
+		return dubfunc1 != null || unfunc1 != null;
+	}
+	
+	public boolean isFunc2Enabled() {
+		return dubfunc2 != null || unfunc2 != null;
+	}
+	
+	public boolean isFunc3Enabled() {
+		return dubfunc3 != null || unfunc3 != null;
+	}
+}

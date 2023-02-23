@@ -1,0 +1,43 @@
+package game;
+
+import java.util.concurrent.Callable;
+
+public class Level {
+	private Callable<Double> function1;
+	private Callable<Double> function2;
+	private Callable<Double> function3;
+	
+	private String lvlTxt; //Shown before start of level
+	
+	Level(String lvlText, Callable<Double> function1){
+		this.lvlTxt = lvlText;
+		this.function1 = function1;
+	}
+	
+	Level(String lvlText, Callable<Double> function1, Callable<Double> function2){
+		this.lvlTxt = lvlText;
+		this.function1 = function1;
+		this.function2 = function2;
+	}
+	
+	Level(String lvlText, Callable<Double> function1, Callable<Double> function2, Callable<Double> function3){
+		this.lvlTxt = lvlText;
+		this.function1 = function1;
+		this.function2 = function2;
+		this.function3 = function3;
+	}
+	
+	public boolean isFunc2Enabled() {
+		return function2 != null;
+	}
+	
+	public boolean isFunc3Enabled() {
+		return function3 != null;
+	}
+	
+	public String getLvlTxt() {
+		return lvlTxt;
+	}
+	
+	
+}

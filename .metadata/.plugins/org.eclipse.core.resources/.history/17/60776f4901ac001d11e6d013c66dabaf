@@ -1,0 +1,60 @@
+package game;
+
+import java.util.function.DoubleBinaryOperator;
+
+public class BinaryLevel {
+	private DoubleBinaryOperator function1;
+	private DoubleBinaryOperator function2;
+	private DoubleBinaryOperator function3;
+	
+	private int[] disabledNums;
+	
+	private String lvlTxt; //Shown before start of level
+	
+	BinaryLevel(String lvlText, int[] disabledNums, DoubleBinaryOperator function1){
+		this.lvlTxt = lvlText;
+		this.disabledNums = disabledNums;
+		this.function1 = function1;
+	}
+	
+	BinaryLevel(String lvlText, int[] disabledNums, DoubleBinaryOperator function1, DoubleBinaryOperator function2){
+		this.lvlTxt = lvlText;
+		this.disabledNums = disabledNums;
+		this.function1 = function1;
+		this.function2 = function2;
+	}
+	
+	BinaryLevel(String lvlText, int[] disabledNums, DoubleBinaryOperator function1, DoubleBinaryOperator function2, DoubleBinaryOperator function3){
+		this.lvlTxt = lvlText;
+		this.disabledNums = disabledNums;
+		this.function1 = function1;
+		this.function2 = function2;
+		this.function3 = function3;
+	}
+	
+	public boolean isFunc2Enabled() {
+		return function2 != null;
+	}
+	
+	public boolean isFunc3Enabled() {
+		return function3 != null;
+	}
+	
+	public String getLvlTxt() {
+		return lvlTxt;
+	}
+	
+	public double tryFunc1(double arg1, double arg2) {
+		return function1.applyAsDouble(arg1, arg2);
+	}
+	
+	public double tryFunc2(double arg1, double arg2) {
+		try {
+			return function2.applyAsDouble(arg1, arg2);
+		}
+		catch(Exception e) {
+			System.out.println("Error: Function 2 is disabled.");
+		}
+		return 0;
+	}
+}

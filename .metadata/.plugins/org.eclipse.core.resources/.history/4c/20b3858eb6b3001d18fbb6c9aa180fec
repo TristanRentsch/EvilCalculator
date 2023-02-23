@@ -1,0 +1,32 @@
+package main;
+
+import java.awt.EventQueue;
+
+import backEnd.GameLevel;
+import frontEnd.GameUi;
+
+public class Main {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+	}
+	
+	private static void initializeUI(GameLevel[] levels) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					GameUi window = new GameUi(levels);
+					window.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+	
+	private static GameLevel[] initializeLevels() {
+		GameLevel x = new GameLevel("Test", new int[]{1,2});
+	}
+
+}
