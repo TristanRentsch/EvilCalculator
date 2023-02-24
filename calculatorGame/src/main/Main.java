@@ -49,7 +49,7 @@ public class Main {
 		levels[4].setFunc1(LevelFunctions::fib);
 		levels[4].setFunc2((x) -> x + 56);
 		
-		levels[5] = new GameLevel("Sometimes it's nice to see some familiar faces.");
+		levels[5] = new GameLevel("Sometimes it's nice to see some familiar faces.", new int[] {3});
 		levels[5].setIsDecDisabled(true);
 		levels[5].setFunc1(LevelFunctions::findGCD);
 		levels[5].setFunc2(LevelFunctions::numDuplicator);

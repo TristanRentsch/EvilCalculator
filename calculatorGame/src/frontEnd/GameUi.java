@@ -190,11 +190,11 @@ public class GameUi {
 		equalsButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				double result;
-				String calcTxt = txtDisplay.getText();
 				if(newCalculation) {
 					txtDisplay.setText("");
 					newCalculation = false;
 				}
+				String calcTxt = txtDisplay.getText();
 				if(calcTxt.isBlank()) return;
 				newCalculation = true;
 				try {
