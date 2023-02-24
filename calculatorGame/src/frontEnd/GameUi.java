@@ -14,6 +14,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.JTextArea;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
+import java.awt.Toolkit;
 
 public class GameUi {
 
@@ -51,6 +52,9 @@ public class GameUi {
 	 */
 	private void initialize() {
 		frmCalculatorGame = new JFrame();
+		frmCalculatorGame.setIconImage(Toolkit.getDefaultToolkit().getImage(GameUi.class.getResource("/resources/EvilCalculatorIcon.png")));
+		frmCalculatorGame.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		frmCalculatorGame.setTitle("Evil Calculator");
 		frmCalculatorGame.setResizable(false);
 		frmCalculatorGame.getContentPane().setBackground(new Color(128, 128, 128));
 		frmCalculatorGame.setBounds(100, 100, 433, 305);
@@ -74,7 +78,7 @@ public class GameUi {
 		history.setEditable(false);
 		history.setWrapStyleWord(true);
 		history.setLineWrap(true);
-		history.setText("Level 1\n" + levels[curLevel].getLvlTxt());
+		history.setText("Level " + (curLevel + 1) + "\n" + levels[curLevel].getLvlTxt());
 		scrollPane.setViewportView(history);
 		
 		//=== Number Buttons ===
@@ -226,6 +230,9 @@ public class GameUi {
 				catch(Exception ex) {
 					txtDisplay.setText("ERROR");
 					ex.printStackTrace();
+				}
+				finally {
+					history.setCaretPosition(0);
 				}
 			}
 		});
