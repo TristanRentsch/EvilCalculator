@@ -22,8 +22,11 @@ public class GameUi {
 	private JScrollPane scrollPane;
 	private JTextArea history;
 	private JButton equalsButton;
-	
-	
+	private JButton deciButton;
+	private JButton ClrButton;
+	private JButton[] numButtons = new JButton[10];
+	private JButton[] funcButtons = new JButton[3];
+	private boolean newCalculation = false;
 	
 	private GameLevel[] levels;
 	private int curLevel = 0;
@@ -74,156 +77,109 @@ public class GameUi {
 		history.setText("Level 1\n" + levels[curLevel].getLvlTxt());
 		scrollPane.setViewportView(history);
 		
-		JButton oneButton = new JButton("1");
-		oneButton.setBounds(10, 50, 45, 45);
-		oneButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				txtDisplay.setText(txtDisplay.getText() + oneButton.getText());
-			}
-		});
+		//=== Number Buttons ===
+		numButtons[0] = new JButton("0");
+		numButtons[0].setBounds(10, 215, 45, 45);	
 		
-		oneButton.setEnabled(!levels[curLevel].isNumDisabled(1));
-		frmCalculatorGame.getContentPane().add(oneButton);
+		numButtons[1] = new JButton("1");
+		numButtons[1].setBounds(10, 50, 45, 45);
 		
-		JButton twoButton = new JButton("2");
-		twoButton.setBounds(65, 50, 45, 45);
-		twoButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				txtDisplay.setText(txtDisplay.getText() + twoButton.getText());
-			}
-		});
-		twoButton.setEnabled(!levels[curLevel].isNumDisabled(2));
-		frmCalculatorGame.getContentPane().add(twoButton);
+		numButtons[2] = new JButton("2");
+		numButtons[2].setBounds(65, 50, 45, 45);
 		
-		JButton threeButton = new JButton("3");
-		threeButton.setBounds(120, 50, 45, 45);
-		threeButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				txtDisplay.setText(txtDisplay.getText() + threeButton.getText());
-			}
-		});
-		threeButton.setEnabled(!levels[curLevel].isNumDisabled(3));
-		frmCalculatorGame.getContentPane().add(threeButton);
+		numButtons[3] = new JButton("3");
+		numButtons[3].setBounds(120, 50, 45, 45);
 		
-		JButton fourButton = new JButton("4");
-		fourButton.setBounds(10, 105, 45, 45);
-		fourButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				txtDisplay.setText(txtDisplay.getText() + fourButton.getText());
-			}
-		});
-		fourButton.setEnabled(!levels[curLevel].isNumDisabled(4));
-		frmCalculatorGame.getContentPane().add(fourButton);
+		numButtons[4] = new JButton("4");
+		numButtons[4].setBounds(10, 105, 45, 45);
 		
-		JButton fiveButton = new JButton("5");
-		fiveButton.setBounds(65, 105, 45, 45);
-		fiveButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				txtDisplay.setText(txtDisplay.getText() + fiveButton.getText());
-			}
-		});
-		fiveButton.setEnabled(!levels[curLevel].isNumDisabled(5));
-		frmCalculatorGame.getContentPane().add(fiveButton);
+		numButtons[5] = new JButton("5");
+		numButtons[5].setBounds(65, 105, 45, 45);
 		
-		JButton sixButton = new JButton("6");
-		sixButton.setBounds(120, 105, 45, 45);
-		sixButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				txtDisplay.setText(txtDisplay.getText() + sixButton.getText());
-			}
-		});
-		sixButton.setEnabled(!levels[curLevel].isNumDisabled(6));
-		frmCalculatorGame.getContentPane().add(sixButton);
+		numButtons[6] = new JButton("6");
+		numButtons[6].setBounds(120, 105, 45, 45);
 		
-		JButton sevenButton = new JButton("7");
-		sevenButton.setBounds(10, 160, 45, 45);
-		sevenButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				txtDisplay.setText(txtDisplay.getText() + sevenButton.getText());
-			}
-		});
-		sevenButton.setEnabled(!levels[curLevel].isNumDisabled(7));
-		frmCalculatorGame.getContentPane().add(sevenButton);
+		numButtons[7] = new JButton("7");
+		numButtons[7].setBounds(10, 160, 45, 45);
 		
-		JButton eightButton = new JButton("8");
-		eightButton.setBounds(65, 160, 45, 45);
-		eightButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				txtDisplay.setText(txtDisplay.getText() + eightButton.getText());
-			}
-		});
-		eightButton.setEnabled(!levels[curLevel].isNumDisabled(8));
-		frmCalculatorGame.getContentPane().add(eightButton);
+		numButtons[8] = new JButton("8");
+		numButtons[8].setBounds(65, 160, 45, 45);
 		
-		JButton nineButton = new JButton("9");
-		nineButton.setBounds(120, 160, 45, 45);
-		nineButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				txtDisplay.setText(txtDisplay.getText() + nineButton.getText());
-			}
-		});
-		nineButton.setEnabled(!levels[curLevel].isNumDisabled(9));
-		frmCalculatorGame.getContentPane().add(nineButton);
+		numButtons[9] = new JButton("9");
+		numButtons[9].setBounds(120, 160, 45, 45);
 		
-		JButton zeroButton = new JButton("0");
-		zeroButton.setBounds(10, 215, 45, 45);
-		zeroButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				txtDisplay.setText(txtDisplay.getText() + zeroButton.getText());
-			}
-		});
-		zeroButton.setEnabled(!levels[curLevel].isNumDisabled(0));
-		frmCalculatorGame.getContentPane().add(zeroButton);
+		int i = 0;
 		
+		for(JButton butt: numButtons) {
+			butt.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					if(newCalculation) {
+						txtDisplay.setText("");
+						newCalculation = false;
+					}
+					txtDisplay.setText(txtDisplay.getText() + butt.getText());
+				}
+			});
+			
+			butt.setEnabled(!levels[curLevel].isNumDisabled(i));
+			frmCalculatorGame.getContentPane().add(butt);
+			i++;
+		}
 		
-		JButton deciButton = new JButton(".");
+		// === Function Buttons ===
+		
+		funcButtons[0] = new JButton("@");
+		funcButtons[0].setBounds(175, 50, 50, 45);
+		
+		funcButtons[1] = new JButton("#");
+		funcButtons[1].setBounds(175, 105, 50, 45);
+		
+		funcButtons[2] = new JButton("&");
+		funcButtons[2].setBounds(175, 160, 50, 45);
+		
+		i = 0;
+		for(JButton funButt: funcButtons) {
+			funButt.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					if(newCalculation) {
+						txtDisplay.setText("");
+						newCalculation = false;
+					}
+					txtDisplay.setText(txtDisplay.getText() + funButt.getText());
+				}
+			});
+			funButt.setEnabled(!levels[curLevel].isFuncDisabled(i));
+			frmCalculatorGame.getContentPane().add(funButt);
+			i++;
+		}
+		
+		//=== Other Buttons ===
+		
+		deciButton = new JButton(".");
 		deciButton.setBounds(65, 215, 45, 45);
 		deciButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				if(newCalculation) {
+					txtDisplay.setText("");
+					newCalculation = false;
+				}
 				txtDisplay.setText(txtDisplay.getText() + deciButton.getText());
 			}
 		});
 		deciButton.setEnabled(!levels[curLevel].getIsDecDisabled());
 		frmCalculatorGame.getContentPane().add(deciButton);
 		
-		JButton fn1Button = new JButton("@");
-		fn1Button.setBounds(175, 50, 50, 45);
-		fn1Button.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				txtDisplay.setText(txtDisplay.getText() + fn1Button.getText());
-			}
-		});
-		fn1Button.setEnabled(!levels[curLevel].isFuncDisabled(1));
-		frmCalculatorGame.getContentPane().add(fn1Button);
-		
-		JButton fn2Button = new JButton("#");
-		fn2Button.setBounds(175, 105, 50, 45);
-		fn2Button.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				txtDisplay.setText(txtDisplay.getText() + fn2Button.getText());
-			}
-		});
-		fn2Button.setEnabled(!levels[curLevel].isFuncDisabled(2));
-		frmCalculatorGame.getContentPane().add(fn2Button);
-		
-		JButton fn3Button = new JButton("&");
-		fn3Button.setBounds(175, 160, 50, 45);
-		fn3Button.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				txtDisplay.setText(txtDisplay.getText() + fn3Button.getText());
-			}
-		});
-		fn3Button.setEnabled(!levels[curLevel].isFuncDisabled(3));
-		frmCalculatorGame.getContentPane().add(fn3Button);
-		
-		JButton ClrButton = new JButton("Clr");
+		ClrButton = new JButton("Clr");
 		ClrButton.setBounds(175, 215, 50, 45);
 		ClrButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				txtDisplay.setText("");
+				newCalculation = false;
 			}
 		});
 		frmCalculatorGame.getContentPane().add(ClrButton);
+		
+		//=== Equals Button ===
 		
 		equalsButton = new JButton("=");
 		equalsButton.setBounds(120, 215, 45, 45);
@@ -231,16 +187,21 @@ public class GameUi {
 			public void actionPerformed(ActionEvent e) {
 				double result;
 				String calcTxt = txtDisplay.getText();
+				if(newCalculation) {
+					txtDisplay.setText("");
+					newCalculation = false;
+				}
 				if(calcTxt.isBlank()) return;
+				newCalculation = true;
 				try {
 					result = levels[curLevel].runCalculation(calcTxt);
 					txtDisplay.setText(String.valueOf(result));
 					
 					//Check Result
 					if(result == TARGET_VALUE && 
-							(calcTxt.contains("@") || levels[curLevel].isFuncDisabled(1)) &&
-							(calcTxt.contains("#") || levels[curLevel].isFuncDisabled(2)) &&
-							(calcTxt.contains("&") || levels[curLevel].isFuncDisabled(3))
+							(calcTxt.contains("@") || levels[curLevel].isFuncDisabled(0)) &&
+							(calcTxt.contains("#") || levels[curLevel].isFuncDisabled(1)) &&
+							(calcTxt.contains("&") || levels[curLevel].isFuncDisabled(2))
 							) {
 						if(curLevel+1 == levels.length) {
 							txtDisplay.setText("You Win!");
@@ -250,6 +211,7 @@ public class GameUi {
 						else {
 							txtDisplay.setText("Good Job!");
 							history.setText("Level " + (++curLevel + 1) + "\n" + levels[curLevel].getLvlTxt());
+							refreshButtons();
 						}
 					} 
 					else {
@@ -268,5 +230,17 @@ public class GameUi {
 			}
 		});
 		frmCalculatorGame.getContentPane().add(equalsButton);
+	}
+	
+	private void refreshButtons() {
+		for(int i = 0; i < numButtons.length; i++) {
+			JButton butt = numButtons[i];
+			butt.setEnabled(!levels[curLevel].isNumDisabled(i));
+		}
+		for(int i = 0; i < funcButtons.length; i++) {
+			JButton butt = funcButtons[i];
+			butt.setEnabled(!levels[curLevel].isFuncDisabled(i));
+		}
+		deciButton.setEnabled(!levels[curLevel].getIsDecDisabled());
 	}
 }

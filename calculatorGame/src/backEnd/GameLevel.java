@@ -35,7 +35,7 @@ public class GameLevel {
 	// === Utility Methods ===
 	
 	private boolean isFuncUnary(int funcNum) {
-		return unFuncs[funcNum-1] != null;
+		return unFuncs[funcNum] != null;
 	}
 	
 	public boolean isNumDisabled(int num) {
@@ -43,7 +43,7 @@ public class GameLevel {
 	}
 	
 	public boolean isFuncDisabled(int funcNum) {
-		return unFuncs[funcNum-1] == null && binFuncs[funcNum-1] == null;
+		return unFuncs[funcNum] == null && binFuncs[funcNum] == null;
 	}
 	public void setIsDecDisabled(boolean b) {
 		isDecDisabled = b;
@@ -93,11 +93,11 @@ public class GameLevel {
 			throw new ArithmeticException("Operator is disabled");
 		}
 		else if(!isFuncUnary(funcNum) && !(arg2.equals("@") || arg2.equals("#") || arg2.equals("&") || arg2.equals(""))) {
-			return runCalculation(binFuncs[funcNum-1].applyAsDouble(arg1, Double.parseDouble(arg2)),
+			return runCalculation(binFuncs[funcNum].applyAsDouble(arg1, Double.parseDouble(arg2)),
 					Arrays.copyOfRange(dataStr, 2, dataStr.length));
 		}
 		else if(isFuncUnary(funcNum) && (arg2.equals("@") || arg2.equals("#") || arg2.equals("&") || arg2.equals(""))) {
-			return runCalculation(unFuncs[funcNum-1].applyAsDouble(arg1),
+			return runCalculation(unFuncs[funcNum].applyAsDouble(arg1),
 					Arrays.copyOfRange(dataStr, 1, dataStr.length));
 		}
 		else {
@@ -113,11 +113,11 @@ public class GameLevel {
 		}
 		switch(dataStr[0]) {
 			case "@":
-				return runCalculationHelper(1, total, dataStr);
+				return runCalculationHelper(0, total, dataStr);
 			case "#":
-				return runCalculationHelper(2, total, dataStr);
+				return runCalculationHelper(1, total, dataStr);
 			case "&":
-				return runCalculationHelper(3, total, dataStr);
+				return runCalculationHelper(2, total, dataStr);
 			default: 
 				return runCalculation(Double.parseDouble(dataStr[0]), 
 						Arrays.copyOfRange(dataStr, 1, dataStr.length));

@@ -31,7 +31,7 @@ public class Main {
 		GameLevel[] levels = new GameLevel[5];
 		
 		levels[0] = new GameLevel("Welcome to Evil Calculator!\n"
-				+ "Try to create the number 666 using the mystery operators.\n");
+				+ "Try to create the number 666 using the mystery operators.");
 		levels[0].setFunc1((x, y) -> x + y);
 		
 		levels[1] = new GameLevel("Operators can be unary or binary.");
