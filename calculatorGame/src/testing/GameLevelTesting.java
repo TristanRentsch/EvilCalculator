@@ -43,9 +43,9 @@ class GameLevelTesting {
 		testLvl.setFunc2(op1);
 		testLvl.setFunc3(op2);
 		
-		assertTrue(testLvl.isFuncDisabled(1));
+		assertTrue(testLvl.isFuncDisabled(0));
+		assertFalse(testLvl.isFuncDisabled(1));
 		assertFalse(testLvl.isFuncDisabled(2));
-		assertFalse(testLvl.isFuncDisabled(3));
 	}
 	
 	// === runCalculationTests ===
