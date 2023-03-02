@@ -2,19 +2,19 @@ package frontEnd;
 
 import javax.swing.JFrame;
 import javax.swing.JTextField;
-import java.awt.Color;
 import javax.swing.SwingConstants;
-
-import backEnd.GameLevel;
-
-import java.awt.Font;
-import javax.swing.JButton;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 import javax.swing.JTextArea;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
+import javax.swing.JButton;
+
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.Toolkit;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+
+import backEnd.GameLevel;
 
 public class GameUi {
 
